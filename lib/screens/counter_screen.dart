@@ -11,6 +11,22 @@ class _CounterScreenState extends State<CounterScreen> {
   //propiedades
   int counter = 0;
 
+  //metodos
+  void increase()  {
+    counter++;
+    setState(() { });
+  }
+
+  void decrease() {
+    counter--;
+    setState(() { });
+  }
+
+  void reset() {
+    counter = 0;
+    setState(() { });
+  }
+
   @override
   Widget build(BuildContext context) {
     //variables
@@ -78,23 +94,50 @@ class _CounterScreenState extends State<CounterScreen> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          FloatingActionButton(
-              onPressed: () => setState(() => counter ++),
-              backgroundColor: Colors.green[300],
-              child: const Icon(Icons.add_outlined)),
-          FloatingActionButton(
-             onPressed: () => setState(() => counter = 0),
-              backgroundColor: Colors.green[300],
-              child: const Icon(Icons.clear_outlined)),
-          FloatingActionButton(
-              onPressed: () => setState(() => counter --),
-              backgroundColor: Colors.green[300],
-              child: const Icon(Icons.remove_outlined)),
-        ],
-      ),
+      floatingActionButton: CustomFloatingActions( 
+        increaseFn: increase,
+        decreaseFn: decrease,
+        resetFn: reset,
+        ),
+    );
+  }
+}
+
+
+class CustomFloatingActions extends StatelessWidget {
+
+  final Function increaseFn;
+  final Function decreaseFn;
+  final Function resetFn;
+
+  const CustomFloatingActions({
+    Key? key, 
+    required this.increaseFn, 
+    required this.decreaseFn, 
+    required this.resetFn,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    
+    const btnColor = Color(0xFF81C784);
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        FloatingActionButton(
+            onPressed: () => increaseFn(),
+            backgroundColor: btnColor,
+            child: const Icon(Icons.add_outlined)),
+        FloatingActionButton(
+            onPressed: () => resetFn(),
+            backgroundColor: btnColor,
+            child: const Icon(Icons.clear_outlined)),
+        FloatingActionButton(
+            onPressed: () => decreaseFn(),
+            backgroundColor: btnColor,
+            child: const Icon(Icons.remove_outlined)),
+      ],
     );
   }
 }
