@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class CounterScreen extends StatefulWidget {
-
   const CounterScreen({super.key});
 
   @override
@@ -10,13 +9,13 @@ class CounterScreen extends StatefulWidget {
 
 class _CounterScreenState extends State<CounterScreen> {
   //propiedades
-   int counter = 0;
+  int counter = 0;
 
   @override
   Widget build(BuildContext context) {
     //variables
     const fontSize30 = TextStyle(fontSize: 25);
-   
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -79,14 +78,23 @@ class _CounterScreenState extends State<CounterScreen> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            counter++;
-            setState(() {
-            });
-          },
-          backgroundColor: Colors.green[300],
-          child: const Icon(Icons.add_outlined)),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          FloatingActionButton(
+              onPressed: () => setState(() => counter ++),
+              backgroundColor: Colors.green[300],
+              child: const Icon(Icons.add_outlined)),
+          FloatingActionButton(
+             onPressed: () => setState(() => counter = 0),
+              backgroundColor: Colors.green[300],
+              child: const Icon(Icons.clear_outlined)),
+          FloatingActionButton(
+              onPressed: () => setState(() => counter --),
+              backgroundColor: Colors.green[300],
+              child: const Icon(Icons.remove_outlined)),
+        ],
+      ),
     );
   }
 }
